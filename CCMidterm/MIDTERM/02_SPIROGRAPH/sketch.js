@@ -34,8 +34,11 @@ function setup()
 
 function draw()
 {
+  textSize(32);
+  text("Press the SpaceBar to Go Back", 10, 30);
+  fill(0, 102, 153);
   if (!trace) {
-    background(255); // clear screen if showing geometry
+    background('rgb(100%,0%,10%)'); // clear screen if showing geometry
     stroke(255, 204, 0); // pen
     noFill(); // don't fill
   } 

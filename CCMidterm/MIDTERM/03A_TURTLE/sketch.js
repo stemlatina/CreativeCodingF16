@@ -1,12 +1,14 @@
 //Marilu Project
 
-
+var pic;
+var pic2;
 var x, y; // some variables for the current position of the turtle
 var currentangle = 270; // we start out facing north
 var step = 20; // how many pixels do we move forward when we draw?
 var angle = 45; // how many degrees do we turn with '+' and '-'
 var osc;
 var playing = false;
+
 
 function setup()
 {
@@ -68,7 +70,6 @@ function keyTyped()
   {
     var x2 = x + step*4*cos(radians(currentangle));
     var y2 = y + step*4*sin(radians(currentangle));
-    line(x, y, x2, y2);
     stroke(20, 75, 200);// connect the old and the new
     strokeWeight(1);
     x = x2;
@@ -104,14 +105,14 @@ function keyTyped()
       osc.amp(0.5, 0.05);
       playing = true;
       backgroundColor = color(0,255,255);
-}
+  }
   else if(key=='2')
   {
       osc.setType('');
       osc.amp(0, 0.5);
       playing = false;
       backgroundColor = color(255,0,255);
-      }
+  }
       
   else if(key=='s')
   {
@@ -119,6 +120,7 @@ function keyTyped()
     textAlign(CENTER);
     text("Midterm", 50, 50);
   }
+
 }
 
 
