@@ -1,35 +1,21 @@
-// TURTLE GRAPHICS
-// https://en.wikipedia.org/wiki/Turtle_graphics
-// 
-// this p5 sketch does a simple implementation of Seymour Papert's
-// 'turtle graphics' package for LOGO.  using key commands, you can
-// drive a turtle as it draws on the screen.
-// 
-// your tasks:
-// (1) make the drawing system that the turtle drives around
-// more interesting.  you can change the way lines work; you
-// can have it plop down images instead of shapes; you can 
-// have it set vertex points for shapes.
-// (2) expand the turtle's vocabulary so it understands more 
-// symbols than +, -, and F.  for example, a standard turtle
-// typically will use lowercase 'f' for a move that *doesn't*
-// draw (e.g. to leave a space).  it will also allow for branching
-// symbols such as '[' and ']' so that the turtle can go on an
-// expedition and 'teleport' back when a branch closes.  a simple
-// thought would be to have the 'C' key change the turtle's drawing
-// color.
-// (3) find a way to make the turtle draw *automatically*, using
-// the same system.  see the next sketch for an example of how that
-// might be done.  :)
+//Marilu Project
+
 
 var x, y; // some variables for the current position of the turtle
 var currentangle = 270; // we start out facing north
 var step = 20; // how many pixels do we move forward when we draw?
 var angle = 45; // how many degrees do we turn with '+' and '-'
+var osc;
+var playing = false;
 
 function setup()
 {
   createCanvas(800, 600);
+  osc = new p5.Oscillator();
+  osc.setType('triangle');
+  osc.freq(240);
+  osc.amp(0);
+  osc.start();
   background(255);
   stroke(0, 0, 0, 255);
   
@@ -69,11 +55,26 @@ function keyTyped()
     // polar to cartesian transformation based on step and currentangle:
     var x1 = x + step*cos(radians(currentangle));
     var y1 = y + step*sin(radians(currentangle));
-    line(x, y, x1, y1); // connect the old and the new
+    line(x, y, x1, y1);
+    stroke('#fae');
+    strokeWeight(1);
+    
+    // connect the old and the new
     // update the turtle's position:
     x = x1;
     y = y1;
   }
+  else if(key=='f')
+  {
+    var x2 = x + step*4*cos(radians(currentangle));
+    var y2 = y + step*4*sin(radians(currentangle));
+    line(x, y, x2, y2);
+    stroke(20, 75, 200);// connect the old and the new
+    strokeWeight(1);
+    x = x2;
+    y = y2;
+  }
+
   else if(key=='+')
   {
    currentangle+=angle; // turn left
@@ -82,6 +83,43 @@ function keyTyped()
   {
    currentangle-=angle; // turn right   
   }
-  
+  else if(key=='y')//makes it yellow
+  {
+    stroke(255, 204, 0);
+    strokeWeight(2);
+  }
+    else if(key=='p')//makes it pink
+  {
+    stroke('#fae');
+    strokeWeight(2);
+  }
+   else if(key=='g')//makes it green
+  {
+    stroke('rgb(0,255,0)');
+    strokeWeight(2);
+  }
+  else if(key=='1')//makes noise
+  {
+      osc.setType('square');
+      osc.amp(0.5, 0.05);
+      playing = true;
+      backgroundColor = color(0,255,255);
 }
+  else if(key=='2')
+  {
+      osc.setType('');
+      osc.amp(0, 0.5);
+      playing = false;
+      backgroundColor = color(255,0,255);
+      }
+      
+  else if(key=='s')
+  {
+    rect(30, 20, 55, 55, 20);
+    textAlign(CENTER);
+    text("Midterm", 50, 50);
+  }
+}
+
+
 
