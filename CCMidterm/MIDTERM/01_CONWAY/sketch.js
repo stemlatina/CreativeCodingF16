@@ -1,10 +1,3 @@
-// CONWAY'S GAME OF LIFE
-// http://en.wikipedia.org/wiki/Conway's_Game_of_Life
-//
-// this p5 sketch implements John Conway's Game of Life simulation
-// as an image-processing system... it looks at pixels in an image
-// and treats them as cells in a version of Conway's simulation.
-//
 // your tasks:
 // (1) make this thing look more interesting... 
 // hint: you don't have to display the image directly to the screen.
@@ -22,15 +15,16 @@ var img = new Array(2); // this is gonna store two images
 var whichimage = 0;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(550, 550);
   img[0] = createImage(howwide, howtall);
   img[1] = createImage(howwide, howtall);
   noSmooth(); // don't smooth anything
   randomize();
+  background(255, 204, 0);
 }
 
 function draw() {
-  background(0, 0, 255, 10);
+  background(255, 204, 0);
   img[whichimage].loadPixels(); // load pixels into memory
   img[1-whichimage].loadPixels(); // load pixels into memory
   for (var i = 0; i < howwide; i++) {
@@ -55,15 +49,15 @@ function draw() {
       if(p4==1) // center pixel is alive
       {
         // if two or three live neighbors, keep alive; otherwise die.
-        if(neighbors==2 || neighbors==3) result = 1; else result = 0;
+        if(neighbors==2 || neighbors==4) result = 1; else result = 0;
       }
       else // center pixel is DEAD
       {
         // if exactly three live neighbors, become alive; otherwise stay dead.
-        if(neighbors==3) result = 1; else result = 0;
+        if(neighbors==4) result = 1; else result = 0;
       }
      // write pixels into destination image, scaled to 0 or 255:
-      img[1-whichimage].set(i, j, color(result*255), color(result*255)); 
+      img[1-whichimage].set(i, j, color(result*300), color(result*300)); 
     }
   }
   img[1-whichimage].updatePixels(); // update pixels on destination
@@ -90,7 +84,7 @@ function keyReleased() // blow out the image with new stuff
 // this completely recreates the simulation with binary noise (cells are on or off)
 function randomize()
 {
-  var randthresh = 8; // 80% of pixels will be dead.
+  var randthresh = 6; // 60% of pixels will be dead.
   img[whichimage].loadPixels(); // load pixels into memory
   img[1-whichimage].loadPixels(); // load pixels into memory
   for (var i = 0; i < img[whichimage].width; i++) {
