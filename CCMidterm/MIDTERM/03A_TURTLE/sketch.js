@@ -1,7 +1,7 @@
 //Marilu Project
 
-var pic;
-var pic2;
+//-------Did the automatic #3 task on the 3B project--------//
+
 var x, y; // some variables for the current position of the turtle
 var currentangle = 270; // we start out facing north
 var step = 20; // how many pixels do we move forward when we draw?

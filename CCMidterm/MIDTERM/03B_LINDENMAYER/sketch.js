@@ -1,26 +1,12 @@
-// L-SYSTEMS:
-// https://en.wikipedia.org/wiki/L-system
-//
-// this p5 sketch takes the turtle we created in the last
-// project and *automates* the drawing based on a Lindenmayer
-// (or L-) system.  L-systems are often used in procedural
-// graphics to make natural, geometric, or interesting 'fractal-style'
-// patterns.
-//
-// your tasks:
-// (1) take a look at the L-system implemented here, and see if you 
-// can expand upon it to do some automatic, cool, geometric drawing.
-// use the turtle that you retooled from the previous sketch as the
-// drawing engine.
-// hint: google L-systems.  there are lots of them out there.
-// another hint: you can use non-drawing symbols as symbolic 
-// placeholders to create really complex patterns.
+//Marilu Duque 3B project
 
-// TURTLE STUFF:
 var x, y; // the current position of the turtle
 var currentangle = 0; // which way the turtle is pointing
 var step = 20; // how much the turtle moves with each 'F'
 var angle = 90; // how much the turtle turns with a '-' or '+'
+var osc;
+var playing = false;
+
 
 // LINDENMAYER STUFF (L-SYSTEMS)
 var thestring = 'A'; // "axiom" or start of the string
@@ -35,9 +21,14 @@ var whereinstring = 0; // where in the L-system are we drawing right now?
 // THIS RUNS WHEN WE HIT GO
 function setup()
 {
-  createCanvas(800, 600); // this is the size of the window
-  background(255); // background to white
-  stroke(0, 0, 0, 255); // draw in black
+  createCanvas(800, 600);
+  osc = new p5.Oscillator();
+  osc.setType('square');
+  osc.freq(240);
+  osc.amp(0);
+  osc.start();
+  background(255);
+  stroke(0, 0, 0, 255);
   
   // start the x and y position at lower-left corner
   x = 0;
@@ -112,6 +103,35 @@ function drawIt(k)
   else if(k=='-')
   {
    currentangle-=angle; // turn right   
+  }
+  else if(key=='y')//makes it yellow
+  {
+    stroke(255, 204, 0);
+    strokeWeight(2);
+  }
+    else if(key=='p')//makes it pink
+  {
+    stroke('#fae');
+    strokeWeight(2);
+  }
+   else if(key=='g')//makes it green
+  {
+    stroke('rgb(0,255,0)');
+    strokeWeight(2);
+  }
+  else if(key=='1')//makes noise
+  {
+      osc.setType('square');
+      osc.amp(0.5, 0.05);
+      playing = true;
+      backgroundColor = color(0,255,255);
+  }
+  else if(key=='2')
+  {
+      osc.setType('');
+      osc.amp(0, 0.5);
+      playing = false;
+      backgroundColor = color(255,0,255);
   }
    
   // DRAW EVERYTHING:
